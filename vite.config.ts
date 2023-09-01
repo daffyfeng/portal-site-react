@@ -4,6 +4,6 @@ import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  root: path.join(__dirname, 'src'),
+  // root: path.join(__dirname, 'src'),
   plugins: [react()],
 })
