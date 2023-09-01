@@ -9,6 +9,8 @@ const router = createBrowserRouter([
       const token = localStorage.getItem('token');
         if (!token) {
           // 重定向到登录页
+          console.log('重定向');
+          
           return redirect("/login");
         }
       return null;
