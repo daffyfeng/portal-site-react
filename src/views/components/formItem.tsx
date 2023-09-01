@@ -1,6 +1,6 @@
 
 
-export default function FormItem({item, onItemValueChange}) {
+export default function FormItem({item, onItemValueChange}: {item: any, onItemValueChange: any}) {
     
     return (
         <div className="form-item">

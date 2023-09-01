@@ -1,11 +1,11 @@
 import { useState } from "react"
-import FormItem from "./components/formItem"
-import './login.css'
+import FormItem from "../components/formItem"
+import './index.css'
 
 export default function Login() {
     const [usernameItem, setUsernameItem] = useState({name: '用户名', prop: 'username', value: ''})
     const [passwordItem, setPasswordItem] = useState({name: '密码', prop: 'password', value: ''})
-    function onSubmit(e: any) {
+    function onSubmit() {
         // e.stopPropagation();
         console.log(usernameItem);
         console.log(passwordItem);
