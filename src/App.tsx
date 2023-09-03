@@ -1,18 +1,14 @@
-import { useState } from 'react'
-import { Button } from "antd"
 import './App.scss'
-import { HighlightOutlined } from '@ant-design/icons'
+
+import Router from './router'
+import { useRoutes } from 'react-router-dom'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const outlet = useRoutes(Router)
 
   return (
     <>
-      <Button type='primary' onClick={() => setCount((count) => count + 1)}>
-        <HighlightOutlined />
-        count is {count}
-      </Button>
-
+      {outlet}
     </>
   )
 }
