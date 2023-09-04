@@ -4,7 +4,7 @@ import { lazy } from "react";
 const router = createBrowserRouter([
   {
     path: "/",
-    Component: lazy(() => import('../views/home')),
+    Component: lazy(() => import('../views/Home')),
     loader : async () => {
       const token = localStorage.getItem('token');
         if (!token) {
