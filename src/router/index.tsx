@@ -1,6 +1,7 @@
 import { Suspense, lazy } from "react"
 import { Navigate } from 'react-router-dom'
 // import Home from "@/views/Home"
+import Login from "@/views/login"
 
 const HomeLayout = lazy(() => import('@/views/HomeLayout'))
 const Home = lazy(() => import('@/views/Home'))
@@ -28,7 +29,11 @@ const router = [
             }
         ]
 
-    }
+    },
+    {
+        path: '/login',
+        element: <Login />,
+    },
 ]
 
 export default router

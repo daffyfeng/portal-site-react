@@ -3,6 +3,8 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 import vitePluginImp from 'vite-plugin-imp'
 
+// console.log(import.meta.env.VITE_REACT_APP_BASEURL)
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -22,7 +24,15 @@ export default defineConfig({
       "@": path.join(__dirname, './src'),
     }
   },
-  server:{
-    host:'0.0.0.0'
-  }
+  server: {
+    port: 5173,//端口号
+    host:'0.0.0.0',
+    proxy: {
+      ["/api"]: {
+        target: 'http://cmict-gateway:80',
+        changeOrigin: true, //是否跨域
+        rewrite: (p) =>  p.replace(/^\/api/, ""), //重写路径
+      },
+    },
+  },
 })

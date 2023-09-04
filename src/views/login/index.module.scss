@@ -1,0 +1,27 @@
+
+.login-form {
+    max-width: 600px;
+    // height: 400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+
+    // 避免括号内class被样式隔离，保持原名称
+    :global(.form-item) {
+        margin: 8px ;
+    }
+    
+    :global(.item-label) {
+        width: 100px;
+        display: inline-block;
+        text-align: right;
+        padding: 0 8px;
+    }
+
+    :global(.login-button) {
+        margin: 0 auto;
+    }
+}
+
+
+
