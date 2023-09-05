@@ -34,7 +34,8 @@ export default ({ mode }) => {
         [env.VITE_REACT_APP_BASEURL]: {
           target: 'http://cmict-gateway:80',
           changeOrigin: true, //是否跨域
-          rewrite: (p) => p.replace(`/^${env.VITE_REACT_APP_BASEURL}/`, ''), //重写路径
+          rewrite: (p) =>
+            p.replace(new RegExp('^\\' + env.VITE_REACT_APP_BASEURL), ''), //重写路径
         },
       },
     },
