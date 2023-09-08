@@ -17,6 +17,9 @@ const service = axios.create({
 service.interceptors.request.use(
   (config) => {
     // 在发送请求之前做些什么
+    config.headers.set('X-Requested-With', 'XMLHttpRequest');
+    config.headers.set('satoken', localStorage.getItem('satoken'));
+
     return config;
   },
   function (error) {
@@ -27,9 +30,12 @@ service.interceptors.request.use(
 
 // 添加响应拦截器
 service.interceptors.response.use(
-  (response) => {
+  (res) => {
+    if (res.status !== 200) {
+      return Promise.reject('程序异常');
+    }
     // 对响应数据做点什么
-    return response;
+    return res;
   },
   function (error) {
     // 对响应错误做点什么
