@@ -29,7 +29,13 @@ export default function Login() {
       })
       .then(({ data }) => {
         if (data.code == 200) {
-          location.href = decodeURIComponent(data.data);
+          setTimeout(() => {
+            location.href = decodeURIComponent(data.data);
+          }, 2000);
+
+          api.success({
+            message: '登陆成功',
+          });
         } else if (data.code == 401) {
           console.log('未登录');
         } else {
