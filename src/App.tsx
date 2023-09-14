@@ -1,7 +1,7 @@
-import './App.scss'
+import './App.scss';
 
-// import Router from './router'
-// import { useRoutes } from 'react-router-dom'
+import { Router } from '@/router';
+import { RouterProvider } from 'react-router-dom';
 
 function App() {
   // const outlet = useRoutes(Router)
@@ -9,8 +9,9 @@ function App() {
   return (
     <>
       {/* {outlet} */}
+      <RouterProvider router={Router()} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

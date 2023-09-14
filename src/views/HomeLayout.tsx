@@ -3,6 +3,7 @@ import { PieChartOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Layout, Menu, theme } from 'antd';
 import { useNavigate, Outlet } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -24,7 +25,7 @@ function getItem(
 
 const items: MenuItem[] = [getItem('首页', '/index', <PieChartOutlined />)];
 
-const Home: React.FC = () => {
+const Home = ({ userInfo }: any) => {
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
@@ -53,7 +54,9 @@ const Home: React.FC = () => {
         />
       </Sider>
       <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }} />
+        <Header style={{ padding: 0, background: colorBgContainer }}>
+          {userInfo.username}
+        </Header>
         <Content style={{ margin: '0 16px' }}>
           {/* <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>首页</Breadcrumb.Item>
@@ -76,4 +79,9 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+const mapStateToProps = (state: { userInfo: any }) => {
+  const { userInfo } = state;
+  return { userInfo };
+};
+
+export default connect(mapStateToProps)(Home);

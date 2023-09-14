@@ -3,6 +3,8 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Button, Form, Input, notification } from 'antd';
 import http from '@/utils/http';
 import React, { useEffect, useMemo } from 'react';
+import { connect } from 'react-redux';
+import { setUser } from '@/redux/actions/userInfo';
 
 type FieldType = {
   name?: string;
@@ -11,7 +13,7 @@ type FieldType = {
 
 const Context = React.createContext({ name: 'Default' });
 
-export default function Login() {
+const Login = ({ setUser }: any) => {
   const [searchParams] = useSearchParams();
   const [form] = Form.useForm();
   const navigate = useNavigate();
@@ -61,6 +63,9 @@ export default function Login() {
           if (data.code == 200) {
             localStorage.setItem('ssoToken', data.data.ssoToken);
             localStorage.setItem('user', JSON.stringify(data.data.user));
+            // dispatch
+            setUser(data.data.user);
+
             api.info({
               message: `登录成功`,
               duration: 200,
@@ -116,4 +121,6 @@ export default function Login() {
       </Form>
     </Context.Provider>
   );
-}
+};
+
+export default connect(null, { setUser })(Login);

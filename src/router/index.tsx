@@ -76,7 +76,6 @@ const generateRouter = (routers: any) => {
     );
     item.errorElement = <ErrorBoundary></ErrorBoundary>;
     item.loader = async (res: any) => {
-      console.log(res);
       const url = new URL(res.request.url);
       const result = beforeRouterLoader({ toPath: url.pathname });
 
