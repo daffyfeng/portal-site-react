@@ -34,7 +34,6 @@ export default function Login() {
       .then(({ data }) => {
         if (data.code == 200) {
           location.href = decodeURIComponent(data.data);
-
           api.success({
             message: '登陆成功',
           });
@@ -60,7 +59,8 @@ export default function Login() {
         })
         .then(({ data }) => {
           if (data.code == 200) {
-            localStorage.setItem('satoken', data.data);
+            localStorage.setItem('cmtoken', data.data.token);
+            localStorage.setItem('user', JSON.stringify(data.data.user));
             api.info({
               message: `登录成功`,
               duration: 200,
@@ -75,7 +75,7 @@ export default function Login() {
         })
         .catch(({ message, response }) => {
           api.error({
-            message: response.data.msg || message,
+            message: (response && response.data.msg) || message,
           });
         });
     });
