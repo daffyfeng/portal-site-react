@@ -16,22 +16,24 @@ export default function Login() {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const [api, contextHolder] = notification.useNotification();
+  const params = {
+    client: getParam('client', ''),
+    redirect: getParam('redirect', ''),
+    mode: getParam('mode', ''),
+  };
 
   useEffect(() => {
-    const params = {
-      client: getParam('client', ''),
-      redirect: getParam('redirect', ''),
-      mode: getParam('mode', ''),
-    };
+    if (params.client && params.redirect) redirectUrl();
+  }, []);
+
+  function redirectUrl() {
     http
       .post('/server/sso/getRedirectUrl', params, {
         headers: { 'content-type': 'application/x-www-form-urlencoded' },
       })
       .then(({ data }) => {
         if (data.code == 200) {
-          setTimeout(() => {
-            location.href = decodeURIComponent(data.data);
-          }, 2000);
+          location.href = decodeURIComponent(data.data);
 
           api.success({
             message: '登陆成功',
@@ -44,7 +46,7 @@ export default function Login() {
           });
         }
       });
-  }, []);
+  }
 
   function getParam(key: string, defaultValue = '') {
     return searchParams.get(key) || defaultValue;
@@ -63,7 +65,8 @@ export default function Login() {
               message: `登录成功`,
               duration: 200,
             });
-            navigate('/index');
+            if (params.client && params.redirect) redirectUrl();
+            else navigate('/index');
           } else {
             api.error({
               message: data.msg,

@@ -1,5 +1,6 @@
 //引入我们下载好的 Axios 库
 import axios from 'axios';
+import { notification } from 'antd';
 
 //可以使用自定义配置新建一个 axios 实例
 const service = axios.create({
@@ -31,8 +32,17 @@ service.interceptors.request.use(
 // 添加响应拦截器
 service.interceptors.response.use(
   (res) => {
-    if (res.status !== 200) {
+    const { status, data } = res;
+    if (status !== 200) {
       return Promise.reject('程序异常');
+    }
+
+    if (data.code === 401 && data.msg == '未登录') {
+      localStorage.removeItem('satoken');
+      notification.error({ message: '请重新登录' });
+      if (location.pathname !== '/login') {
+        location.href = '/login';
+      }
     }
     // 对响应数据做点什么
     return res;

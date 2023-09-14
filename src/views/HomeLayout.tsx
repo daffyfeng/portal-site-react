@@ -43,7 +43,7 @@ const Home: React.FC = () => {
         collapsed={collapsed}
         onCollapse={(value) => setCollapsed(value)}
       >
-        <div className='demo-logo-vertical'>sss</div>
+        <div className='demo-logo-vertical'>xxx统一门户</div>
         <Menu
           theme='dark'
           defaultSelectedKeys={['/index']}
