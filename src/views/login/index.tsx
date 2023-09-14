@@ -59,7 +59,7 @@ export default function Login() {
         })
         .then(({ data }) => {
           if (data.code == 200) {
-            localStorage.setItem('cmtoken', data.data.token);
+            localStorage.setItem('ssoToken', data.data.ssoToken);
             localStorage.setItem('user', JSON.stringify(data.data.user));
             api.info({
               message: `登录成功`,

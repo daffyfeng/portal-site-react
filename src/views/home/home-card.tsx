@@ -1,5 +1,5 @@
 import http from '@/utils/http';
-import { Card } from 'antd';
+import { Avatar, Card } from 'antd';
 
 export default function HomeCard({ api }: any) {
   function onOpenSite() {
@@ -21,16 +21,24 @@ export default function HomeCard({ api }: any) {
       });
   }
 
+  const url =
+    'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg';
+
+  const title = (
+    <div>
+      <Avatar src={url} /> <span>龙江系统</span>
+    </div>
+  );
+
   return (
     <Card
-      title='xxx系统'
+      title={title}
       hoverable
       bordered={false}
       style={{ width: 300 }}
       onClick={onOpenSite}
     >
-      <p>描述：1</p>
-      <p>描述：2</p>
+      <div>描述：龙江数字政府效能监察系统</div>
     </Card>
   );
 }

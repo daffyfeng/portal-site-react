@@ -89,9 +89,9 @@ const generateRouter = (routers: any) => {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const beforeRouterLoader: IrouterBeforeLoad = (to, from) => {
   if (to.toPath === '/login') {
-    // localStorage.removeItem('cmtoken');
+    // localStorage.removeItem('ssoToken');
   } else {
-    if (!localStorage.getItem('cmtoken')) {
+    if (!localStorage.getItem('ssoToken')) {
       return redirect('/login');
     }
   }

@@ -19,7 +19,7 @@ service.interceptors.request.use(
   (config) => {
     // 在发送请求之前做些什么
     config.headers.set('X-Requested-With', 'XMLHttpRequest');
-    config.headers.set('cmtoken', localStorage.getItem('cmtoken'));
+    config.headers.set('ssoToken', localStorage.getItem('ssoToken'));
 
     return config;
   },
@@ -38,7 +38,7 @@ service.interceptors.response.use(
     }
 
     if (data.code === 401 && data.msg == '未登录') {
-      localStorage.removeItem('cmtoken');
+      localStorage.removeItem('ssoToken');
       notification.error({ message: '请重新登录' });
       if (location.pathname !== '/login') {
         location.href = '/login';
