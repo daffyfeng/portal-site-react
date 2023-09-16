@@ -57,7 +57,7 @@ const Login = ({ setUser }: any) => {
     form.validateFields().then((value) => {
       http
         .post('/server/sso/doLogin', value, {
-          headers: { 'content-type': 'application/x-www-form-urlencoded' },
+          headers: { 'Content-type': 'application/x-www-form-urlencoded' },
         })
         .then(({ data }) => {
           if (data.code == 200) {

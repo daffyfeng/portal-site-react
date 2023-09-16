@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { PieChartOutlined } from '@ant-design/icons';
+import { LogoutOutlined, PieChartOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
-import { Layout, Menu, theme } from 'antd';
+import { Avatar, Button, Layout, Menu, theme } from 'antd';
 import { useNavigate, Outlet } from 'react-router-dom';
 import { connect } from 'react-redux';
+import http from '@/utils/http';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -37,6 +38,10 @@ const Home = ({ userInfo }: any) => {
     navigate(e.key);
   };
 
+  const loginOut = () => {
+    http.get('/sso/logout').then(() => {});
+  };
+
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider
@@ -55,7 +60,14 @@ const Home = ({ userInfo }: any) => {
       </Sider>
       <Layout>
         <Header style={{ padding: 0, background: colorBgContainer }}>
-          {userInfo.username}
+          <Avatar style={{ verticalAlign: 'middle' }} size='large' gap={1}>
+            {userInfo.username}
+          </Avatar>
+          <Button
+            type='primary'
+            icon={<LogoutOutlined />}
+            onClick={() => loginOut()}
+          />
         </Header>
         <Content style={{ margin: '0 16px' }}>
           {/* <Breadcrumb style={{ margin: '16px 0' }}>

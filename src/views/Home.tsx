@@ -2,17 +2,25 @@ import http from '@/utils/http';
 import { useEffect, useState } from 'react';
 import HomeCard from './home/home-card';
 import { JSX } from 'react/jsx-runtime';
+import { notification } from 'antd';
 
 export default function Home() {
   const list: JSX.Element[] = [];
   const [sites, setSites] = useState([]);
   const [listSite, setListSite] = useState(list);
   useEffect(() => {
-    http.get('/home/index').then(({ data }) => {
-      if (data.code == 200) {
-        setSites(data.data);
-      }
-    });
+    http
+      .get('/home/index')
+      .then(({ data }) => {
+        if (data.code == 200) {
+          setSites(data.data);
+        }
+      })
+      .catch(({ message }) => {
+        notification.error({
+          message,
+        });
+      });
   }, []);
 
   useEffect(() => {

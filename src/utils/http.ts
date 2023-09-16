@@ -33,6 +33,7 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   (res) => {
     const { status, data } = res;
+
     if (status !== 200) {
       return Promise.reject('程序异常');
     }
