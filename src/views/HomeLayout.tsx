@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { LogoutOutlined, PieChartOutlined } from '@ant-design/icons';
+import {
+  ControlOutlined,
+  DashboardOutlined,
+  DesktopOutlined,
+  LogoutOutlined,
+  PieChartOutlined,
+  DatabaseOutlined,
+} from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Avatar, Button, Layout, Menu, theme } from 'antd';
 import { useNavigate, Outlet } from 'react-router-dom';
@@ -24,7 +31,22 @@ function getItem(
   } as MenuItem;
 }
 
-const items: MenuItem[] = [getItem('首页', '/index', <PieChartOutlined />)];
+const items: MenuItem[] = [
+  getItem('首页', '/index', <DashboardOutlined />),
+
+  getItem('数据预览', '/dataPreview', <DesktopOutlined />, [
+    getItem('数据查询', '/dataQuery', null),
+    getItem('表配置', '/tableConfig', null),
+  ]),
+
+  getItem('数据源', '/dataSource', <DatabaseOutlined />),
+  getItem('任务配置', '/taskConfig', <PieChartOutlined />),
+
+  getItem('运维', '/operations', <ControlOutlined />, [
+    getItem('作业监控', '/monitor', null),
+    getItem('用户配置', '/userConfig', null),
+  ]),
+];
 
 const Home = ({ userInfo }: any) => {
   const [collapsed, setCollapsed] = useState(false);
@@ -39,7 +61,9 @@ const Home = ({ userInfo }: any) => {
   };
 
   const loginOut = () => {
-    http.get('/sso/logout').then(() => {});
+    http.delete('auth/signout').then(() => {
+      navigate('/login');
+    });
   };
 
   return (
@@ -49,7 +73,7 @@ const Home = ({ userInfo }: any) => {
         collapsed={collapsed}
         onCollapse={(value) => setCollapsed(value)}
       >
-        <div className='demo-logo-vertical'>xxx统一门户</div>
+        <div className='demo-logo-vertical'>指标计算平台</div>
         <Menu
           theme='dark'
           defaultSelectedKeys={['/index']}

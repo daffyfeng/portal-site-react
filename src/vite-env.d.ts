@@ -3,3 +3,5 @@
 // interface ImportMeta {
 //     readonly env: ImportMetaEnv
 //   }
+
+declare module 'crypto-js';

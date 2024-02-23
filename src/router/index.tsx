@@ -42,6 +42,10 @@ const routes = [
         // element: withLoadingComponent(<Home />),
         component: Home,
       },
+      {
+        path: '/dataQuery',
+        component: lazy(() => import('@/views/Home')),
+      },
     ],
   },
   {
@@ -88,9 +92,9 @@ const generateRouter = (routers: any) => {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const beforeRouterLoader: IrouterBeforeLoad = (to, from) => {
   if (to.toPath === '/login') {
-    // localStorage.removeItem('ssoToken');
+    localStorage.clear();
   } else {
-    if (!localStorage.getItem('ssoToken')) {
+    if (!localStorage.getItem('access_token')) {
       return redirect('/login');
     }
   }

@@ -18,8 +18,9 @@ const service = axios.create({
 service.interceptors.request.use(
   (config) => {
     // 在发送请求之前做些什么
-    config.headers.set('X-Requested-With', 'XMLHttpRequest');
-    config.headers.set('ssoToken', localStorage.getItem('ssoToken'));
+    // config.headers.set('X-Requested-With', 'XMLHttpRequest');
+    const token = localStorage.getItem('access_token') || '';
+    if (token) config.headers.set('Authorization', `Bearer ${token}`);
 
     return config;
   },
@@ -55,11 +56,11 @@ service.interceptors.response.use(
 );
 
 const http = {
-  get(url: any, data = {}, options = {}) {
+  get(url: any, params = {}, options = {}) {
     return service({
       url,
       method: 'get',
-      data,
+      params,
       ...options,
     });
   },
@@ -68,6 +69,14 @@ const http = {
       url,
       method: 'post',
       data,
+      ...options,
+    });
+  },
+  delete(url: any, params = {}, options = {}) {
+    return service({
+      url,
+      method: 'delete',
+      params,
       ...options,
     });
   },
